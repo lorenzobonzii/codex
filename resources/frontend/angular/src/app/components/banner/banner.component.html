@@ -1,0 +1,23 @@
+<div class="row mb-3">
+  <app-spinner *ngIf="isLoading"></app-spinner>
+  <owl-carousel-o *ngIf="!isLoading" [options]="carouselOptionsSingleItem">
+    @for (movie of movies; track movie;) {
+    <ng-container>
+      <ng-template carouselSlide>
+        <div class="row">
+          <div class="col-12">
+            <div class="banner p-5 w-100" style="background-image:url('{{ movie.url_copertina_o }}');">
+              <h1 class="text-primary title-shadow">{{ movie.titolo }}</h1>
+              <p class="title-shadow">{{ movie.seasons ? 'Stagioni: ' + movie.durata : 'Durata: ' + movie.durata + ' min' }} | Anno: {{ movie.anno }}</p>
+              <div class="mb-4">
+                <button class="btn btn-primary me-2" (click)="watch(movie.anteprima, $event)"><i class="fas fa-play"></i> Riproduci</button>
+                <a [routerLink]="['/browse', movie.seasons ? 'series':'films', movie.id]"><button class="btn btn-secondary"><i class="fas fa-info"></i> Dettagli</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+    }
+  </owl-carousel-o>
+</div>

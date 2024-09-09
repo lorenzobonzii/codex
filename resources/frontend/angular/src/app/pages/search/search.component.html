@@ -1,0 +1,24 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+@for (movie of movies; track movie;){
+  <div id="{{movie?.id}}">
+    <div class="card w-100 mb-3">
+      <div class="row g-0">
+        <div class="col-md-3">
+          <a [routerLink]="['/browse', movie.seasons ? 'series':'films', movie.id]">
+            <img src="{{ movie?.url_copertina_o_min }}" class="img-fluid rounded-start" alt="{{movie?.titolo}}">
+          </a>
+        </div>
+        <div class="col-md-9">
+          <div class="card-body">
+            <a [routerLink]="['/browse', movie.seasons ? 'series':'films', movie.id]"><h5 class="card-title">{{movie?.titolo}}</h5></a>
+            <p class="card-text">{{movie?.trama}}</p>
+            <p class="card-text"><small class="text-muted">{{ movie?.seasons ? 'Stagioni: ' + movie?.durata : 'Durata: ' + movie?.durata + ' min' }} | Anno: {{ movie?.anno }}</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+}
+@empty {
+  <p>Nessun film o serie trovato...</p>
+}

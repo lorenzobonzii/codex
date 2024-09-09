@@ -1,0 +1,18 @@
+<div [formGroup]="group">
+  <div
+    class="form-check form-check-inline"
+    *ngFor="let option of options; let j = index;"
+  >
+    <input
+      class="form-check-input"
+      type="radio"
+      [formControlName]="field.name"
+      [value]="option.value"
+
+      [ngClass]="{ 'errore': group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty), 'successo': !group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty) }"
+    />
+    <label class="form-check-label" for="inlineRadio1" [ngClass]="{ 'errore': group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty), 'successo': !group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty) }">
+      {{ option.label }}</label
+    >
+  </div>
+</div>

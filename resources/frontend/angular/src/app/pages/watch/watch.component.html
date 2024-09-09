@@ -1,0 +1,3 @@
+@if(videoId){
+  <youtube-player id="youtube-player" #player [videoId]="videoId" [width]="width" [height]="height" [playerVars]="playerVars" (ready)="onReadyPlayer()" (apiChange)="onApiChange()" (stateChange)="onStateChange()" [loadApi]="false" disablePlaceholder></youtube-player>
+}

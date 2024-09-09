@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-8 order-md-2">
+    <div class="w-100" (click)="changePlayVideo()">
+      <app-player #appPlayer [placeholder]="serie?.copertina_o" [videoId]="serie?.anteprima" [height]="500"></app-player>
+    </div>
+  </div>
+  <div class="col-md-4 bg-dark pb-4 order-md-1">
+    <div class="w-100">
+      <h1>{{serie?.titolo}}</h1>
+      <p class="text-primary-light">Stagioni: {{serie?.durata}} | Anno: {{serie?.anno}}</p>
+      <p>{{serie?.trama}}</p>
+      <p class="mb-0"><b>Regia: </b>{{serie?.regia}}</p>
+      <p class="mb-0"><b>Cast: </b>{{serie?.attori}}</p>
+      <p class="mb-0"><b>Generi: </b>
+        @for (genre of serie?.genres; let last = $last; track genre) {
+          <span>{{ genre.nome }}{{ last ? "" : ", " }}</span>
+        }
+      </p>
+      <p><b>Lingua: </b>{{serie?.lingua}}</p>
+    </div>
+    <button class="btn btn-primary btn-sm me-2" (click)="watch(serie.anteprima, $event)"><i class="fas fa-play"></i> Riproduci</button>
+    <app-actions *ngIf="isAdmin && serie" [slug]="'series'" [data]="serie" [fields]="serie_fields"></app-actions>
+  </div>
+</div>
+<div class="row pb-5">
+  <div class="d-flex w-100 justify-content-between align-items-center">
+    <app-breadcrumb [titolo]="titolo"></app-breadcrumb>
+    <select class="form-select w-auto" [(ngModel)]="current_season">
+      @for (season of serie?.seasons; track season;) {
+        <option [ngValue]="season">{{season.titolo}}</option>
+      }
+    </select>
+  </div>
+  <div id="{{current_season?.id}}">
+    <hr class="w-100"/>
+    <h3 class="h3 mb-3">{{current_season?.titolo}} | Anno: {{current_season?.anno}}</h3>
+    @for (episode of current_season?.episodes; track episode;){
+      <div class="card w-100 mb-3">
+        <div class="row g-0">
+          <div class="col-md-3">
+            <img src="{{ episode.url_copertina }}" class="img-fluid rounded-start" alt="{{episode.titolo}}">
+          </div>
+          <div class="col-md-9">
+            <div class="card-body">
+              <h5 class="card-title">{{episode.titolo}}</h5>
+              <p class="card-text">{{episode.descrizione}}</p>
+              <p class="card-text"><small class="text-muted">Durata: {{episode.durata}} min</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+<app-slider [genres]="serie?.genres" [isLoading]="isLoading"></app-slider>
+<ngx-spinner type="ball-scale-multiple" color="#ff0066"></ngx-spinner>

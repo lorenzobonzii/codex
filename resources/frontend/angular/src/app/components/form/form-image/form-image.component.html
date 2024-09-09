@@ -1,0 +1,28 @@
+<div [formGroup]="group" class="row">
+  <div class="col-md-6">
+    <input
+        [type]="'file'"
+        [accept]="'image/png,image/jpg'"
+        class="form-control"
+        [ngClass]="{ 'errore': group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty), 'successo': !group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty) }"
+        (change)="fileChangeEvent($event)"
+        />
+  </div>
+  <div class="col-md-6">
+    <img *ngIf="!view" [src]="field.image?.url" width="100%">
+    <image-cropper
+    *ngIf="view"
+    [imageChangedEvent]="imageChangedEvent"
+    [maintainAspectRatio]="true"
+    [aspectRatio]="field.image?.aspectRatio??1"
+    [output] = "'base64'"
+    format="png"
+    [imageFile] = "file"
+    (imageCropped)="imageCropped($event)"
+    (imageLoaded)="imageLoaded($event)"
+    (cropperReady)="cropperReady()"
+    (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
+  </div>
+  <input [type]="'hidden'" [value]="" [formControlName]="field.name">
+</div>

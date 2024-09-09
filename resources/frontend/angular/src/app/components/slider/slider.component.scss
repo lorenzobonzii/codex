@@ -1,0 +1,19 @@
+.hide {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s ease;
+}
+.card:hover .hide {
+  display: block;
+  z-index: auto;
+  position: fixed;
+  visibility: visible;
+  opacity: 1;
+  height: -webkit-fill-available;
+  width: -webkit-fill-available;
+}
+.oneline {
+  white-space:nowrap;
+  overflow:hidden;
+}

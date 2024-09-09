@@ -1,0 +1,121 @@
+/* Importing Bootstrap SCSS file. */
+
+@use 'variabili';
+
+@use 'bootstrap/scss/bootstrap' with (
+  $primary: variabili.$colore-primario
+);
+
+.bg-dark-75 {
+  background-color: rgba(var(--bs-dark-rgb), 0.8) !important;
+}
+
+th, td {
+  vertical-align: middle!important;
+}
+
+//CAROUSEL
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+
+.owl-carousel {
+  position: relative;
+}
+.owl-prev,
+.owl-next {
+  position: absolute;
+  top: 50%;
+  margin-top: -10px!important; // Half of the prev/next buttons height here in negatives to center them perfectly
+}
+.owl-prev {
+  left: 0;
+}
+.owl-next {
+  right: 0;
+}
+.owl-theme .owl-nav [class*=owl-]{
+  background: variabili.$colore-primario;
+}
+
+// MESSAGGI ERRORE-SUCCESSO
+select.errore:focus, input.errore:focus, textarea.errore:focus {
+  box-shadow: 0 0 0 .25rem rgba($color: red, $alpha: 0.25);
+}
+
+select.errore, input.errore,
+textarea.errore {
+    color: red;
+    border: 1px solid red!important;
+    margin-bottom:0px!important;
+}
+
+label.errore, select.errore::placeholder, input.errore::placeholder, textarea.errore::placeholder {
+    color: red!important;
+}
+
+p.errore {
+    color: red;
+    margin-bottom:20px!important;
+    font-size:80%;
+    margin-top:0px!important;
+}
+div.errore {
+    width: 100%;
+    text-align: left;
+    color: red;
+    font-size:80%;
+    margin-top:0px!important;
+}
+
+select.successo:focus, input.successo:focus, textarea.successo:focus {
+  box-shadow: 0 0 0 .25rem rgba($color: green, $alpha: 0.25);
+}
+
+select.successo, input.successo,
+textarea.successo {
+    border: 1px solid green!important;
+    margin-bottom:0px!important;
+}
+
+label.successo, select.successo::placeholder, input.successo::placeholder, textarea.successo::placeholder {
+  color: green!important;
+}
+
+p.successo {
+    color: green;
+    margin-bottom:20px!important;
+    font-size:80%;
+    margin-top:0px!important;
+}
+div.successo {
+    width: 100%;
+    text-align: left;
+    color: green;
+    font-size:80%;
+    margin-top:0px!important;
+}
+
+p.messaggio-errore {
+    background-color: #ffbaba;
+    border-radius: 10px;
+    color: #c60505;
+    padding: 10px;
+    margin-top: 15px!important;
+    margin-bottom: 15px!important;
+}
+
+p.messaggio-successo {
+    background-color: #a6ffa6;
+    border-radius: 10px;
+    color: darkgreen;
+    padding: 10px;
+    margin-top: 15px!important;
+    margin-bottom: 15px!important;
+}
+
+//IFRAME
+#youtube-player-movie iframe {
+  display: block;
+  position: relative;
+  top: -60px;
+}

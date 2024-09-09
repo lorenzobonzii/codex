@@ -1,0 +1,8 @@
+<form class="form mt-3 row" [formGroup]="dynamicFormGroup" (ngSubmit)="onSubmit()">
+  <div [ngClass]="field.class" *ngFor="let field of fields">
+    <app-form-control [field]="field" [optionsData]="optionsData" [group]="dynamicFormGroup"></app-form-control>
+  </div>
+  <div class="my-2">
+    <input [disabled]="!dynamicFormGroup.valid" type="submit" class="form-control btn btn-primary" type="submit" name="login" value="Invia">
+  </div>
+</form>

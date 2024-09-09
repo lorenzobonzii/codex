@@ -1,0 +1,31 @@
+<div class="row text-left my-3">
+  @for (genre of genres; track genre;) {
+    @if(genre.movies && genre.movies.length > 1){
+    <p><span class="text-primary"><b>Genere</b></span> / {{ genre.nome }}</p>
+    <app-spinner *ngIf="isLoading"></app-spinner>
+    <owl-carousel-o *ngIf="!isLoading" [options]="carouselOptionsMultiItem">
+      @for (movie of genre.movies; track movie;) {
+      <ng-container>
+        <ng-template carouselSlide>
+          <div class="card">
+            <a [routerLink]="['/browse', movie.seasons ? 'series':'films', movie.id]">
+              <img class="sliderimg" src="{{movie.url_copertina_o_min}}" [alt]="movie.titolo" [title]="movie.titolo">
+            </a>
+            <div class="card-body bg-dark-75 hide">
+              <a [routerLink]="['/browse', movie.seasons ? 'series':'films', movie.id]" [title]="movie.titolo" class="text-white text-decoration-none">
+                <h5 class="card-title oneline">{{movie.titolo}}</h5>
+                <p class="card-text oneline">Anno: {{movie.anno}} | {{movie.seasons ? 'Stagioni: ':'Durata: '}}{{movie.durata}}{{movie.seasons ? '':' min'}}</p>
+              </a>
+              <div class="mt-2">
+                <button class="btn btn-primary btn-sm me-2" (click)="watch(movie.anteprima, $event)"><i class="fas fa-play"></i> Riproduci</button>
+                <a [routerLink]="['/browse', movie.seasons ? 'series':'films', movie.id]"><button class="btn btn-secondary btn-sm"><i class="fas fa-info"></i> Dettagli</button></a>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+      }
+    </owl-carousel-o>
+    }
+  }
+</div>

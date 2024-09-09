@@ -1,0 +1,93 @@
+@if(user){
+<div *ngIf="!isActiveAuthenticated" class="alert alert-danger" role="alert">Risulti attualmente {{user.state.nome}}, attendi di essere attivato per eccedere ai nostri servizi. Nel caso l'attesa dovesse durare più del previsto, contatti l'assistenza.</div>
+<div class="row">
+  <div class="col-lg-4">
+    <div class="card mb-4">
+      <div class="card-body text-center">
+        <h5 class="my-2">{{user.person.nome}} {{user.person.cognome}}</h5>
+        <p class="text-muted mb-1">{{user.user}}</p>
+        <p class="text-muted mb-1">Ruolo: {{user.role.nome}} | Stato: {{user.state.nome}}</p>
+        <div class="d-flex justify-content-center my-2">
+          <app-update [slug]="'profile'" [data]="user" [fields]="user_fields"></app-update>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Data di nascita: </p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{user.person.data_nascita}}</p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Sesso: </p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{user.person.sesso}}</p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Codice fiscale: </p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{user.person.cf}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  @if(user.person.contacts){
+  <div class="col-lg-6">
+    <div class="card mb-4">
+      <div class="card-header">
+        Contatti
+      </div>
+      <div class="card-body">
+        @for(contact of user.person.contacts; let last = $last; track contact;){
+          <div class="row">
+            <div class="col-sm-3">
+              <p class="mb-0">{{contact.contact_type.nome}}: </p>
+            </div>
+            <div class="col-sm-9">
+              <p class="text-muted mb-0">{{contact.contatto}}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+  }
+  @if(user.person.addresses){
+  <div class="col-lg-6">
+    <div class="card mb-4">
+      <div class="card-header">
+        Indirizzi
+      </div>
+      <div class="card-body">
+        @for(address of user.person.addresses; let last = $last; track address;){
+          <div class="row">
+            <div class="col-sm-3">
+              <p class="mb-0">{{address.address_type.nome}}: </p>
+            </div>
+            <div class="col-sm-9">
+              <p class="text-muted mb-0">{{address.indirizzo}} {{address.civico}}, {{address.CAP}} {{address.municipality.comune}}, {{address.nation.nome}}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+  }
+</div>
+}

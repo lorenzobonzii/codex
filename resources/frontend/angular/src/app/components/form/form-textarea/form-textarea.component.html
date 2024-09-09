@@ -1,0 +1,9 @@
+<div [formGroup]="group">
+  <textarea
+    class="form-control"
+    [formControlName]="field.name"
+    *ngIf="field.type === 'textarea'"
+    [ngClass]="{ 'errore': group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty), 'successo': !group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty) }"
+  > {{ field.value ?? field.placeholder ?? '' }}
+  </textarea>
+</div>

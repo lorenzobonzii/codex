@@ -1,0 +1,10 @@
+<app-insert class="float-left" [slug]="slug" [fields]="fields"></app-insert>
+<div class="table-responsive">
+  <table *ngIf="dtOptions" datatable [dtOptions]="dtOptions" class="table table-bordered table-responsive">
+  </table>
+</div>
+<app-spinner *ngIf="!dtOptions"></app-spinner>
+
+<ng-template #actions let-data="adtData">
+  <app-actions [data]="data" [fields]="fields" [slug]="slug"></app-actions>
+</ng-template>

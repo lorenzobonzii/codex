@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-8 order-md-2">
+    <div class="w-100" (click)="changePlayVideo()">
+      <app-player #appPlayer [placeholder]="film?.copertina_o" [videoId]="film?.anteprima" [height]="500"></app-player>
+    </div>
+  </div>
+  <div class="col-md-4 bg-dark pb-4 order-md-1">
+    <div class="w-100">
+      <h1>{{film?.titolo}}</h1>
+      <p class="text-primary-light">Durata: {{film?.durata}} min | Anno: {{film?.anno}}</p>
+      <p>{{film?.trama}}</p>
+      <p class="mb-0"><b>Regia: </b>{{film?.regia}}</p>
+      <p class="mb-0"><b>Cast: </b>{{film?.attori}}</p>
+      <p class="mb-0"><b>Generi: </b>
+        @for (genre of film?.genres; let last = $last; track genre) {
+          <span>{{ genre.nome }}{{ last ? "" : ", " }}</span>
+        }
+      </p>
+      <p><b>Lingua: </b>{{film?.lingua}}</p>
+    </div>
+    <button class="btn btn-primary btn-sm me-2" (click)="watch(film.anteprima, $event)"><i class="fas fa-play"></i> Riproduci</button>
+    <app-actions *ngIf="isAdmin && film" [slug]="'films'" [data]="film" [fields]="film_fields"></app-actions>
+  </div>
+</div>
+<app-slider [genres]="film?.genres" [isLoading]="isLoading"></app-slider>
+<ngx-spinner type="ball-scale-multiple" color="#ff0066"></ngx-spinner>

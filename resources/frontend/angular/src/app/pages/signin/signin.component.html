@@ -1,0 +1,6 @@
+<div class="row flex-column align-items-center">
+  <div class="col-md-6 bg-dark-75 p-5 my-5 text-white d-flex flex-column justify-content-center">
+    <h1 class="text-center">Registrati</h1>
+    <app-form [fields]="user_fields" [optionsData]="optionsData" (onFormGroupChange)="onSubmit($event)"></app-form>
+  </div>
+</div>

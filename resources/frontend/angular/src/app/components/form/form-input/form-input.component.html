@@ -1,0 +1,36 @@
+<div [formGroup]="group">
+  @if (field.type == "password"){
+    <div class="input-group">
+      <input
+        id = {{field.name}}
+        class="form-control"
+        type="{{showPassword ? 'text' : 'password'}}"
+        [formControlName]="field.name"
+        [placeholder]="field.placeholder ?? '' "
+        [value]="field.value ?? '' "
+        [ngClass]="{ 'errore': group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty), 'successo': !group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty) }"
+      />
+      <span (click)="changeShowPassword()" class="input-group-text"><i class="fa-solid {{showPassword ? 'fa-eye-slash' : 'fa-eye'}}" id="togglePassword"></i></span>
+    </div>
+  }
+  @else if (field.type == "hidden"){
+    <input
+        id = {{field.name}}
+        class="form-control"
+        type="hidden"
+        [formControlName]="field.name"
+        [value]="field.value ?? '' "
+      />
+  }
+  @else {
+  <input
+        [type]="field.type"
+        [placeholder]="field.placeholder ?? '' "
+        [value]="field.value ?? '' "
+        class="form-control"
+        [formControlName]="field.name"
+        *ngIf="field.type !== 'textarea'"
+        [ngClass]="{ 'errore': group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty), 'successo': !group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty) }"
+      />
+  }
+</div>

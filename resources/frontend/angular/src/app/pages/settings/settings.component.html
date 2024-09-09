@@ -1,0 +1,62 @@
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#options" aria-expanded="true" aria-controls="options">
+        Opzioni
+      </button>
+    </h2>
+    <div id="options" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <app-table [slug]="'options'" [campi]="option_campi" [fields]="option_fields"></app-table>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#users" aria-expanded="false" aria-controls="users">
+        Utenti
+      </button>
+    </h2>
+    <div id="users" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <app-table [slug]="'users'" [campi]="user_campi" [fields]="user_fields"></app-table>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#genres" aria-expanded="false" aria-controls="genres">
+        Generi
+      </button>
+    </h2>
+    <div id="genres" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <app-table [slug]="'genres'" [campi]="genre_campi" [fields]="genre_fields"></app-table>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nations" aria-expanded="false" aria-controls="nations">
+        Nazioni
+      </button>
+    </h2>
+    <div id="nations" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <app-table [slug]="'nations'" [campi]="nation_campi" [fields]="nation_fields"></app-table>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#municipalities" aria-expanded="false" aria-controls="municipalities">
+        Comuni
+      </button>
+    </h2>
+    <div id="municipalities" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <app-table [slug]="'municipalities'" [campi]="municipality_campi" [fields]="municipality_fields"></app-table>
+      </div>
+    </div>
+  </div>
+</div>

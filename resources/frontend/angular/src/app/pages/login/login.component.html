@@ -1,0 +1,8 @@
+<div class="row flex-column align-items-center">
+  <div class="col-md-6 bg-dark-75 p-5 my-5 text-white text-center d-flex flex-column justify-content-center">
+    <h1>Accedi</h1>
+    <app-form [fields]="login_fields" (onFormGroupChange)="onSubmit($event)"></app-form>
+    <hr>
+    <p>E' la prima volta che entri su CODE? <a class="text-primary text-decoration-none" [routerLink]="['/signin']"><b>Registrati</b></a></p>
+  </div>
+</div>

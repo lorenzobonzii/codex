@@ -1,0 +1,10 @@
+@if(videoId){
+<youtube-player id="youtube-player-movie" #player [videoId]="videoId" [width]="width" [height]="height" [playerVars]="playerVars" (ready)="onReadyPlayer()" (apiChange)="onApiChange()" (stateChange)="onStateChange()" [loadApi]="false" disablePlaceholder></youtube-player>
+<!--<div class="mb-4 text-center">
+  <button class="btn btn-sm btn-primary me-2" (click)="changePlayVideo()">{{isPlaying ? "Pausa ": "Riproduci "}}<i class='fas' [ngClass]="{'fa-play': !isPlaying, 'fa-pause': isPlaying}"></i></button>
+  <button class="btn btn-sm btn-secondary" (click)="ingrandisci()">Ingrandisci <i class='fas fa-expand'></i></button>
+</div>-->
+}
+@else {
+  <img class="mb-4" id="placeholder" src="{{placeholder}}" [ngStyle]="{'width': img_width, 'height': img_height}" >
+}

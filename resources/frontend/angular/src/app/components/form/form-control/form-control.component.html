@@ -1,0 +1,58 @@
+@if (field.type != "group"){
+  <div class="mb-3" [formGroup]="group">
+  @if (field.label){
+    <label for="exampleFormControlInput1" class="form-label" [ngClass]="{ 'errore': group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty), 'successo': !group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty) }">
+    {{ field.label }}
+    </label>
+  }
+  @if(['text', 'number', 'email', 'date', 'password', 'hidden'].includes(field.type)){
+    <app-form-input [field]="field" [group]="group"></app-form-input>
+  }
+  @else if (field.type=="textarea"){
+    <app-form-textarea [field]="field" [group]="group"></app-form-textarea>
+  }
+  @else if (field.type=="radio"){
+    <app-form-radio [field]="field" [optionsData]="optionsData" [group]="group"></app-form-radio>
+  }
+  @else if (field.type=="checkbox"){
+    <app-form-checkbox [field]="field" [optionsData]="optionsData" [group]="group"></app-form-checkbox>
+  }
+  @else if (field.type=="select" || field.type=="select-multiplo"){
+    <app-form-select [field]="field" [optionsData]="optionsData"  [group]="group"></app-form-select>
+  }
+  @else if (field.type=="image"){
+    <app-form-image [field]="field" [group]="group"></app-form-image>
+  }
+    <app-form-error [field]="field" [group]="group"></app-form-error>
+  </div>
+}
+@else if (field.type === "group" && field.group){
+  <div class="mt-3 mb-3" [formGroup]="group">
+    <div id="accordion-{{field.name}}" [formArrayName]="field.name">
+      <h3 class="h3">{{field.label}}</h3>
+      <hr class="hr">
+      <div class="mb-2 w-100 clearfix">
+        <button class="btn btn-success btn-sm float-end" (click)="addGroupValue($event)"><i class="fas fa-plus"></i> {{field.group?.label_insert}}</button>
+      </div>
+      <div class="accordion" id="accordion-{{field.name}}">
+        <div *ngFor="let value of field.group?.values; let i=index;"> <!-- value è un singolo contatto p.e.-->
+          <div class="mb-1 accordion-item" [formGroupName]="i">
+            <h2 class="accordion-header" id="accordion-heading-{{field.name}}-{{i}}">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#accordion-'+field.name+'-'+i" aria-expanded="true" [attr.aria-controls]="'#accordion-'+field.name+'-'+i">
+                {{field.group?.title_singolar}} {{i+1}}
+              </button>
+            </h2>
+            <div id="accordion-{{field.name}}-{{i}}" class="accordion-collapse collapse" [attr.aria-labelledby]="'accordion-heading-'+field.name+'-'+i" [attr.data-bs-parent]="'#accordion-'+field.name">
+              <div class="accordion-body row">
+                <div [ngClass]="groupfield.class" *ngFor="let groupfield of value">
+                  <app-form-control [optionsData]="optionsData" [field]="groupfield" [group]="getFormGroupOfArray(field.name,i)"></app-form-control>
+                </div>
+                <button class="btn btn-danger btn-sm w-100" (click)="deleteGroupValue(i, $event)"><i class="fas fa-trash"></i> {{field.group.label_delete}} {{i+1}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

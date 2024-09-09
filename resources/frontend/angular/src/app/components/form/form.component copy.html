@@ -1,0 +1,280 @@
+<form class="form mt-3" [formGroup]="dynamicFormGroup" (ngSubmit)="onSubmit()">
+  <div *ngFor="let field of fields">
+    <!-- Text, Textarea & Number -->
+    <div
+      class="mb-3"
+      *ngIf="['text', 'number', 'email', 'date', 'textarea'].includes(field.type)"
+    >
+      <!--<label *ngIf="field.label" for="exampleFormControlInput1" class="form-label" [ngClass]="{ 'errore': dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty), 'successo': !dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty) }">
+        {{ field.label }}
+      </label>-->
+      <!--<input
+        [type]="field.type"
+        [placeholder]="field.placeholder ?? '' "
+        [value]="field.value ?? '' "
+        class="form-control"
+        [formControlName]="field.name"
+        *ngIf="field.type !== 'textarea'"
+        [ngClass]="{ 'errore': dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty), 'successo': !dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty) }"
+      />-->
+      <!--<app-form-input [field]="field" [group]="dynamicFormGroup"></app-form-input>-->
+      <!--<textarea
+        class="form-control"
+        [formControlName]="field.name"
+        *ngIf="field.type === 'textarea'"
+        [ngClass]="{ 'errore': dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty), 'successo': !dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty) }"
+      > {{ field.value ?? field.placeholder ?? '' }}
+      </textarea>-->
+      <!--<app-form-textarea [field]="field" [group]="dynamicFormGroup"></app-form-textarea>
+      <div
+        class="errore"
+        *ngIf="
+          dynamicFormGroup.controls[field.name]?.invalid &&
+          dynamicFormGroup.controls[field.name]?.touched
+        "
+      >
+        {{ getErrorMessage(field) }}
+      </div>-->
+      <app-form-control [field]="field" [group]="dynamicFormGroup"></app-form-control>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3"
+      *ngIf="field.type === 'password'"
+    >
+      <label *ngIf="field.label" for="{{field.name}}" class="form-label" [ngClass]="{ 'errore': dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty), 'successo': !dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty) }">
+        {{ field.label }}
+      </label>
+      <div class="input-group">
+        <input
+          id = {{field.name}}
+          class="form-control"
+          type="{{field.showPassword ? 'text' : 'password'}}"
+          [formControlName]="field.name"
+          [placeholder]="field.placeholder ?? '' "
+          [value]="field.value ?? '' "
+          [ngClass]="{ 'errore': dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty), 'successo': !dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty) }"
+        />
+        <span (click)="changePassword(field)" class="input-group-text"><i class="fa-solid {{field.showPassword ? 'fa-eye-slash' : 'fa-eye'}}" id="togglePassword"></i></span>
+      </div>
+      <div
+        class="errore"
+        *ngIf="
+          dynamicFormGroup.controls[field.name]?.invalid &&
+          dynamicFormGroup.controls[field.name]?.touched
+        "
+      >
+        {{ getErrorMessage(field) }}
+      </div>
+    </div>
+
+    <!-- Radio Button -->
+    <div class="mb-3" *ngIf="['radio'].includes(field.type)">
+      <div>
+        <label *ngIf="field.label" for="exampleFormControlInput1" class="form-label" [ngClass]="{ 'errore': dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty), 'successo': !dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty) }">
+          {{ field.label }}
+        </label>
+      </div>
+      <div
+        class="form-check form-check-inline"
+        *ngFor="let option of field.options"
+      >
+        <input
+          class="form-check-input"
+          type="radio"
+          [formControlName]="field.name"
+          id="inlineRadio1"
+          [value]="option.value"
+          [ngClass]="{ 'errore': dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty), 'successo': !dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty) }"
+        />
+        <label class="form-check-label" for="inlineRadio1" [ngClass]="{ 'errore': dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty), 'successo': !dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty) }">
+          {{ option.label }}</label
+        >
+      </div>
+    </div>
+
+    <!-- Select  -->
+    <div class="mb-3" *ngIf="['select'].includes(field.type)">
+      <label *ngIf="field.label" for="exampleFormControlInput1" class="form-label" [ngClass]="{ 'errore': dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty), 'successo': !dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty) }">
+        {{ field.label }}
+      </label>
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        [formControlName]="field.name"
+        [ngClass]="{ 'errore': dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty), 'successo': !dynamicFormGroup.controls[field.name]?.invalid && (dynamicFormGroup.controls[field.name]?.touched || dynamicFormGroup.controls[field.name]?.dirty) }"
+      >
+        <option selected disabled>-Seleziona un'opzione-</option>
+        <option
+          *ngFor="let option of field.options"
+          [value]="option.value"
+        >
+          {{ option.label }}
+        </option>
+      </select>
+      <div
+      class="errore"
+      *ngIf="
+        dynamicFormGroup.controls[field.name]?.invalid &&
+        dynamicFormGroup.controls[field.name]?.touched
+      "
+    >
+      {{ getErrorMessage(field) }}
+      </div>
+    </div>
+
+
+
+    <!-- Group -->
+    <div class="mb-3" id="accordion-{{field.name}}" *ngIf="field.type === 'group' && field.group" [formArrayName]="field.name">
+      <div class="d-flex justify-content-between">
+        <h6 class="h6">{{field.label}}</h6>
+        <button class="btn btn-success btn-sm">{{field.group?.label_insert}}</button>
+      </div>
+      <hr class="hr">
+      <div class="accordion" id="accordion-{{field.name}}">
+        <div *ngFor="let value of field.group?.values; let i=index;"> <!-- value è un singolo contatto p.e.-->
+          <div class="accordion-item" [formGroupName]="i">
+            <h2 class="accordion-header" id="accordion-heading-{{field.name}}-{{i}}">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#accordion-'+field.name+'-'+i" aria-expanded="true" [attr.aria-controls]="'#accordion-'+field.name+'-'+i">
+                {{field.group?.title_singolar}} {{i+1}}
+              </button>
+            </h2>
+            <div id="accordion-{{field.name}}-{{i}}" class="accordion-collapse collapse" [attr.aria-labelledby]="'accordion-heading-'+field.name+'-'+i" [attr.data-bs-parent]="'#accordion-'+field.name">
+              <div class="accordion-body">
+                <div *ngFor="let groupfield of value">
+                  <!-- Text, Textarea & Number -->
+                  <div
+                    class="mb-3"
+                    *ngIf="['text', 'number', 'email', 'date', 'textarea'].includes(groupfield.type)"
+                  >
+                    <label *ngIf="groupfield.label" for="exampleFormControlInput1" class="form-label" [ngClass]="{ 'errore': dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty), 'successo': !dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty) }">
+                      {{ groupfield.label }}
+                    </label>
+                    <input
+                      [type]="groupfield.type"
+                      [placeholder]="groupfield.placeholder ?? '' "
+                      [value]="groupfield.value ?? '' "
+                      class="form-control"
+                      [formControlName]="groupfield.name"
+                      *ngIf="groupfield.type !== 'textarea'"
+                      [ngClass]="{ 'errore': dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty), 'successo': !dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty) }"
+                    />
+                    <textarea
+                      class="form-control"
+                      [formControlName]="groupfield.name"
+                      *ngIf="groupfield.type === 'textarea'"
+                      [ngClass]="{ 'errore': dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty), 'successo': !dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty) }"
+                    > {{ groupfield.value ?? groupfield.placeholder ?? '' }}
+                    </textarea>
+                    <div
+                      class="errore"
+                      *ngIf="
+                        dynamicFormGroup.controls[groupfield.name]?.invalid &&
+                        dynamicFormGroup.controls[groupfield.name]?.touched
+                      "
+                    >
+                      {{ getErrorMessage(groupfield) }}
+                    </div>
+                  </div>
+
+                  <!-- Password -->
+                  <div class="mb-3"
+                    *ngIf="groupfield.type === 'password'"
+                  >
+                    <label *ngIf="groupfield.label" for="{{groupfield.name}}" class="form-label" [ngClass]="{ 'errore': dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty), 'successo': !dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty) }">
+                      {{ groupfield.label }}
+                    </label>
+                    <div class="input-group">
+                      <input
+                        id = {{groupfield.name}}
+                        class="form-control"
+                        type="{{groupfield.showPassword ? 'text' : 'password'}}"
+                        [formControlName]="groupfield.name"
+                        [placeholder]="groupfield.placeholder ?? '' "
+                        [value]="groupfield.value ?? '' "
+                        [ngClass]="{ 'errore': dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty), 'successo': !dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty) }"
+                      />
+                      <span (click)="changePassword(groupfield)" class="input-group-text"><i class="fa-solid {{groupfield.showPassword ? 'fa-eye-slash' : 'fa-eye'}}" id="togglePassword"></i></span>
+                    </div>
+                    <div
+                      class="errore"
+                      *ngIf="
+                        dynamicFormGroup.controls[groupfield.name]?.invalid &&
+                        dynamicFormGroup.controls[groupfield.name]?.touched
+                      "
+                    >
+                      {{ getErrorMessage(groupfield) }}
+                    </div>
+                  </div>
+
+                  <!-- Radio Button -->
+                  <div class="mb-3" *ngIf="['radio'].includes(groupfield.type)">
+                    <div>
+                      <label *ngIf="groupfield.label" for="exampleFormControlInput1" class="form-label" [ngClass]="{ 'errore': dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty), 'successo': !dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty) }">
+                        {{ groupfield.label }}
+                      </label>
+                    </div>
+                    <div
+                      class="form-check form-check-inline"
+                      *ngFor="let option of groupfield.options"
+                    >
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        [formControlName]="groupfield.name"
+                        id="inlineRadio1"
+                        [value]="option.value"
+                        [ngClass]="{ 'errore': dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty), 'successo': !dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty) }"
+                      />
+                      <label class="form-check-label" for="inlineRadio1" [ngClass]="{ 'errore': dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty), 'successo': !dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty) }">
+                        {{ option.label }}</label
+                      >
+                    </div>
+                  </div>
+
+                  <!-- Select  -->
+                  <div class="mb-3" *ngIf="['select'].includes(groupfield.type)">
+                    <label *ngIf="groupfield.label" for="exampleFormControlInput1" class="form-label" [ngClass]="{ 'errore': dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty), 'successo': !dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty) }">
+                      {{ groupfield.label }}
+                    </label>
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                      [formControlName]="groupfield.name"
+                      [ngClass]="{ 'errore': dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty), 'successo': !dynamicFormGroup.controls[groupfield.name]?.invalid && (dynamicFormGroup.controls[groupfield.name]?.touched || dynamicFormGroup.controls[groupfield.name]?.dirty) }"
+                    >
+                      <option selected disabled>-Seleziona un'opzione-</option>
+                      <option
+                        *ngFor="let option of groupfield.options"
+                        [value]="option.value"
+                      >
+                        {{ option.label }}
+                      </option>
+                    </select>
+                    <div
+                    class="errore"
+                    *ngIf="
+                      dynamicFormGroup.controls[groupfield.name]?.invalid &&
+                      dynamicFormGroup.controls[groupfield.name]?.touched
+                    "
+                  >
+                    {{ getErrorMessage(groupfield) }}
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-danger btn-block">{{field.group.label_delete}} {{i+1}}</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+  <input [disabled]="!dynamicFormGroup.valid" type="submit" class="mt-3 form-control btn btn-primary" type="submit" name="login" value="Invia">
+</form>

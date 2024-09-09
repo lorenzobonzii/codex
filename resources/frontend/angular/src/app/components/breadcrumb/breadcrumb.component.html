@@ -1,0 +1,7 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    @for (path of paths; let last = $last; track path;) {
+    <li class="h1 breadcrumb-item" [ngClass]="(last && paths.length > 1) ? 'active' : ''">{{ path.charAt(0).toUpperCase() + path.slice(1) }}</li>
+    }
+  </ol>
+</nav>

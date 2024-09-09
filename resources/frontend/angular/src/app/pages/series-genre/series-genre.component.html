@@ -1,0 +1,4 @@
+<app-breadcrumb></app-breadcrumb>
+<app-banner [movies]="genre[0].movies" [isLoading]="isLoading"></app-banner>
+<app-slider [genres]="genre" [isLoading]="isLoading"></app-slider>
+<p *ngIf="genre[0].movies.length === 0">Nessuna serie trovata corrispondente a questo genere...</p>

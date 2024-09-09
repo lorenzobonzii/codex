@@ -1,0 +1,13 @@
+.banner {
+  display: flex;
+  background-position: center center;
+  background-size: cover;
+  height: 450px;
+  flex-direction: column;
+  justify-content: center;
+}
+.title-shadow {
+  //text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
+  -webkit-text-stroke: 0.5px #000000;
+  //text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
+}

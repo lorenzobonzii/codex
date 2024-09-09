@@ -1,0 +1,9 @@
+<div
+  class="errore"
+  *ngIf="
+    group.controls[field.name]?.invalid &&
+    group.controls[field.name]?.touched
+  "
+>
+  {{ getErrorMessage() }}
+</div>

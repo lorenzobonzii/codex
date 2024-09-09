@@ -1,0 +1,14 @@
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Eliminazione</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<p>Sei sicuro di voler eliminare questa risorsa?</p>
+	</div>
+	<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')">Annulla</button>
+		<button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Conferma</button>
+	</div>
+</ng-template>
+<button type="button" class="btn btn-danger btn-sm" (click)="open(content)">Elimina</button>

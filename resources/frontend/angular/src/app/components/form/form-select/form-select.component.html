@@ -1,0 +1,29 @@
+<div [formGroup]="group">
+  <select
+  *ngIf="field.type=='select'"
+  class="form-select"
+  [formControlName]="field.name"
+  [ngClass]="{ 'errore': group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty), 'successo': !group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty) }"
+>
+  <option selected disabled>-Seleziona un'opzione-</option>
+  <option
+    *ngFor="let option of options"
+    [value]="option.value"
+    [selected]="option.value == group.controls[field.name].value"
+  >{{ option.label }}</option>
+</select>
+<select
+*ngIf="field.type=='select-multiplo'"
+class="form-select"
+[formControlName]="field.name"
+[ngClass]="{ 'errore': group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty), 'successo': !group.controls[field.name]?.invalid && (group.controls[field.name]?.touched || group.controls[field.name]?.dirty) }"
+[multiple]="true"
+>
+<option selected disabled>-Seleziona un'opzione-</option>
+<option
+  *ngFor="let option of options"
+  [value]="option.value"
+  [selected]="group.controls[field.name].value?.includes(option.value)"
+>{{ option.label }}</option>
+</select>
+</div>
