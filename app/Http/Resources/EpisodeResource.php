@@ -26,7 +26,7 @@ class EpisodeResource extends JsonResource
             "ordine" => $this->ordine,
             "durata" => $this->durata,
             "copertina" => $this->copertina,
-            "url_copertina" => preg_match('/^\/storage\/[a-zA-Z0-9.\/_]+$/', $this->copertina) ? "https://codex.lorenzobonzi.it" . $this->copertina : "https://image.tmdb.org/t/p/w500" . $this->copertina,
+            "url_copertina" => $this->url_copertina,
             "descrizione" => $this->descrizione,
             //"season" => $this->season,
         ];

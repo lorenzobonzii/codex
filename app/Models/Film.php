@@ -30,6 +30,7 @@ class Film extends Model
         "created_at",
         "updated_at",
     ];
+    protected $appends = ['url_copertina_v', 'url_copertina_o', 'url_copertina_o_min'];
 
     public function genres()
     {
@@ -40,20 +41,17 @@ class Film extends Model
         return $this->belongsTo(Nation::class);
     }
 
-    public function isCopertinaVLocale()
+    public function getUrlCopertinaVAttribute()
     {
-        if ($this->copertina_v && preg_match('/^\/storage\/[a-zA-Z0-9.\/_]+$/', $this->copertina_v))
-            return true;
-        else
-            return false;
+        return $this->copertina_v ? (preg_match('/^\/storage\/[a-zA-Z0-9.\/_]+$/', $this->copertina_v) ? "https://codex.lorenzobonzi.it" . $this->copertina_v : "https://image.tmdb.org/t/p/original" . $this->copertina_v) : "https://codex.lorenzobonzi.it/assets/img/copertina_v_default.png";
     }
-
-    public function isCopertinaOLocale()
+    public function getUrlCopertinaOAttribute()
     {
-        if ($this->copertina_o && preg_match('/^\/storage\/[a-zA-Z0-9.\/_]+$/', $this->copertina_o))
-            return true;
-        else
-            return false;
+        return $this->copertina_o ? (preg_match('/^\/storage\/[a-zA-Z0-9.\/_]+$/', $this->copertina_o) ? "https://codex.lorenzobonzi.it" . $this->copertina_o : "https://image.tmdb.org/t/p/original" . $this->copertina_o) : "https://codex.lorenzobonzi.it/assets/img/copertina_o_default.png";
+    }
+    public function getUrlCopertinaOMinAttribute()
+    {
+        return $this->copertina_o ? (preg_match('/^\/storage\/[a-zA-Z0-9.\/_]+$/', $this->copertina_o) ? "https://codex.lorenzobonzi.it" . $this->copertina_o : "https://image.tmdb.org/t/p/w500" . $this->copertina_o) : "https://codex.lorenzobonzi.it/assets/img/copertina_o_default.png";
     }
 
     public function setCopertinaVFromBase64($base64)
@@ -69,7 +67,6 @@ class Film extends Model
             }
         }
     }
-
     public function setCopertinaOFromBase64($base64)
     {
         if (preg_match("/^data:image\/(?<extension>(?:png|gif|jpg|jpeg));base64,(?<image>.+)$/", $base64, $matchings)) {

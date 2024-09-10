@@ -27,7 +27,7 @@ class SeasonResource extends JsonResource
             "anno" => $this->anno,
             "trama" => $this->trama,
             "copertina" => $this->copertina,
-            "url_copertina" => preg_match('/^\/storage\/[a-zA-Z0-9.\/_]+$/', $this->copertina) ? "https://codex.lorenzobonzi.it" . $this->copertina : "https://image.tmdb.org/t/p/original" . $this->copertina,
+            "url_copertina" => $this->url_copertina,
             "episodes" => $this->episodes,
         ];
     }

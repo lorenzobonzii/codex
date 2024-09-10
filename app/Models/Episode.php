@@ -33,7 +33,7 @@ class Episode extends Model
 
     public function getUrlCopertinaAttribute()
     {
-        return preg_match('/^\/storage\/[a-zA-Z0-9.\/_]+$/', $this->copertina) ? "https://codex.lorenzobonzi.it" . $this->copertina : "https://image.tmdb.org/t/p/w500" . $this->copertina;
+        return $this->copertina ? (preg_match('/^\/storage\/[a-zA-Z0-9.\/_]+$/', $this->copertina) ? "https://codex.lorenzobonzi.it" . $this->copertina : "https://image.tmdb.org/t/p/original" . $this->copertina) : "https://codex.lorenzobonzi.it/assets/img/copertina_o_default.png";
     }
 
     public function setCopertinaFromBase64($base64)
